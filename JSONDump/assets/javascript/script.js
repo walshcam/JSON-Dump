@@ -4,6 +4,10 @@
 
     // ****GLOBAL VARIABLES
     let gifSearch;
+    let topics = ["dog","mutt","animal rescue","pitbull","greyhound","cur","pug","french bulldog","boxer"];
+
+    //Render initial set of buttons
+    renderButtons()
 
     // Form Javascript
 
@@ -13,119 +17,105 @@
         console.log("Button Clicked")
         // save form input as gifSearch
         gifSearch = $("input").val().trim();
+        topics.push(gifSearch);
         //verify the saved input is correct and working
         console.log("GIF Search is: " + gifSearch);
         createGIFs()
         renderButtons()
     });
 
-    // function displayTastyGIFs() {
-    //     console.log("DisplayTastyGIFs Function");
-    //     console.log(gifSearch);
-
-    //     //API Key for giphy.com
-    //     let apiKey = "jSNwEu8AaYEGy9B8SpoaztT8M3KsQrrO";
-    //     let testAPIKey = "dc6zaTOxFJmzC";
-        
-
-    //     //create URL
-    //     let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + testAPIKey + "&tag=" + gifSearch;
-
-    //     console.log(queryURL);
-
-    //     //AJAX method
-    //     $.ajax({
-    //         url: queryURL,
-    //         method: "GET"
-    //     })
-        
-    //     .then(function(response) {
-    //         console.log(response)
-    //         gifCreation = response;
-    //     //ensure ajax is working
-    //     //create saved button from response
-    //     });
-    // }
     //Create reference for row
     function createGIFs() {
         //
         $("#gifContainer").empty();
+        let gifAmount = 0;
 
+        console.log("DisplayTastyGIFs Function");
+        console.log(gifSearch);
+
+        //API Key for giphy.com
+        let apiKey = "jSNwEu8AaYEGy9B8SpoaztT8M3KsQrrO";
+        let testAPIKey = "dc6zaTOxFJmzC";
+        
+
+        //create URL
+        let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey + "&limit=10";
+
+        console.log(queryURL);
+
+        //AJAX method
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+
+        .then(function(response) {
 
         // //     // Create new row if 6 pictures are in the first one
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
             let row = $("<div>").addClass("row")
 
-            for (let j = 0; j < 3; j++) {
-                console.log("DisplayTastyGIFs Function");
-                console.log(gifSearch);
+            for (let j = 0; j < 5; j++) {
 
-                //API Key for giphy.com
-                let apiKey = "jSNwEu8AaYEGy9B8SpoaztT8M3KsQrrO";
-                let testAPIKey = "dc6zaTOxFJmzC";
-                
+                console.log(response)
+                let gifDiv = $("<div>");
+                gifDiv.addClass("col");
 
-                //create URL
-                let queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + testAPIKey + "&tag=" + gifSearch;
+                //     // Creating and storing an image tag
+                let gifImage = $("<img>");
 
-                console.log(queryURL);
+                //     // List of attributes added to each gif
+                gifImage.attr("src", response.data[gifAmount].images.fixed_width_still.url);
+                gifImage.attr("data-still",response.data[gifAmount].images.fixed_width_still.url);
+                gifImage.attr("data-animate",response.data[gifAmount].images.fixed_width.url);
+                gifImage.attr("data-state","still");
+                //     // Class added to each gif
+                gifImage.addClass("gif");
+    
+                //     // Prepending the catImage to the images div
+                $(gifDiv).append(gifImage);
+                $(gifDiv).append("<br>")
+                $(gifDiv).append(response.data[gifAmount].rating);
+                $(row).append(gifDiv);
 
-                //AJAX method
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                })
-        
-                .then(function(response) {
-                    console.log(response)
-                    let gifDiv = $("<div>");
-                    gifDiv.addClass("col");
+                gifAmount++;
+            }
 
-                    //     // Creating and storing an image tag
-                    let gifImage = $("<img>");
-
-                    //     // List of attributes added to each gif
-                    gifImage.attr("src", response.data.images.fixed_width_still.url);
-                    gifImage.attr("data-still",response.data.images.fixed_width_still.url);
-                    gifImage.attr("data-animate",response.data.images.fixed_width.url);
-                    gifImage.attr("data-state","still");
-                    //     // Class added to each gif
-                    gifImage.addClass("gif");
-        
-                    //     // Prepending the catImage to the images div
-                    $(gifDiv).append(gifImage);
-                    $(row).append(gifDiv);
-                });
             // Append row to container
             $("#gifContainer").append(row);
-            }
         }
+        });
     }  
 
     // Adding a click event listener to all the elements displayed
     $(document).on("click", ".savedButton", function() {
-        gifSearch = $(this).attr("data-name");
+        gifSearch = $(this).attr("data-name").trim();
         createGIFs()
     });
 
     //     Responsive Button Function  
     function renderButtons() {
-        console.log("renderButtons Function Called")
-    //     // Then dynamicaly generating buttons for each movie in the array
-    //     // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-        let a = $("<button>");
-    //     // Adding a class of movie-btn to our button
-        a.addClass("savedButton");
-    //     // Adding a data-attribute
-        a.attr("data-name", gifSearch);
-    //     // Providing the initial button text
-        a.text(gifSearch);
-    //     // Adding the button to the buttons-view div
-        $("#buttonArea").append(a);
+    //      // Empties buttons everytime function is called so that the list is not repeated
 
-        console.log(gifSearch)
+            $("#buttonArea").empty();
+
+            console.log("renderButtons Function Called")
+        //     // Then dynamicaly generating buttons for each movie in the array
+        for (var i = 0; i < topics.length; i++) {
+        //     // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+            let a = $("<button>");
+        //     // Adding a class of movie-btn to our button
+            a.addClass("savedButton");
+        //     // Adding a data-attribute
+            a.attr("data-name", topics[i]);
+        //     // Providing the initial button text
+            a.text(topics[i]);
+        //     // Adding the button to the buttons-view div
+            $("#buttonArea").append(a);
+
+            console.log(gifSearch)
+        }
     }
-
     
     $(document).on("click", ".gif", function() {
 
