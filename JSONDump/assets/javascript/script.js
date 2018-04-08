@@ -4,9 +4,6 @@
 
     // ****GLOBAL VARIABLES
     let gifSearch;
-    let gifCount = 0;
-    let rowCount = 2;
-    let gifCreation;
 
     // Form Javascript
 
@@ -51,6 +48,10 @@
     // }
     //Create reference for row
     function createGIFs() {
+        //
+        $("#gifContainer").empty();
+
+
         // //     // Create new row if 6 pictures are in the first one
         for (let i = 0; i < 3; i++) {
             let row = $("<div>").addClass("row")
@@ -101,7 +102,7 @@
     }  
 
     // Adding a click event listener to all the elements displayed
-    $(document).on("click", ".savedButton", displayTastyGIFs);
+    $(document).on("click", ".savedButton", createGIFs);
 
     //     Responsive Button Function  
     function renderButtons() {
