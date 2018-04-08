@@ -74,8 +74,12 @@
     
                 //     // Prepending the catImage to the images div
                 $(gifDiv).append(gifImage);
-                $(gifDiv).append("<br>")
-                $(gifDiv).append(response.data[gifAmount].rating);
+
+                //     // Append rating under the GIF
+                $(gifDiv).append("<br>");
+
+                //     // Append rating and GIF to the row
+                $(gifDiv).append("GIF Rating is: " + response.data[gifAmount].rating);
                 $(row).append(gifDiv);
 
                 gifAmount++;

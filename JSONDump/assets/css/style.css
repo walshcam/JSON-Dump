@@ -1,5 +1,6 @@
 body {
     background-color: #136F63;
+    position: relative;
 }
 
 .container-fluid {
@@ -35,10 +36,11 @@ button {
 
 .container {
     background-color: #4ce0D2;
-    width: 1017px;
-    display: block;
-    overflow: auto;
-    margin: auto;
+    width: 1000px;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .row {
@@ -49,4 +51,8 @@ button {
 .col {
     float: left;
     margin: auto;
+    display: inline-block;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #041B15;
+    text-align: center;
 }
