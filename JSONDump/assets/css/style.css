@@ -21,6 +21,8 @@ body {
 
 .container {
     background-color: #4ce0D2;
+    width: 600px;
+    height: 600px;
     margin: auto;
 }
 

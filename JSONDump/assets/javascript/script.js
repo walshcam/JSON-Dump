@@ -85,9 +85,9 @@
                     let gifImage = $("<img>");
 
                     //     // List of attributes added to each gif
-                    gifImage.attr("src", response.data.images.downsized_still.url);
-                    gifImage.attr("data-still",response.data.images.downsized_still.url);
-                    gifImage.attr("data-animate",response.data.images.downsized.url);
+                    gifImage.attr("src", response.data.images.fixed_width_still.url);
+                    gifImage.attr("data-still",response.data.images.fixed_width_still.url);
+                    gifImage.attr("data-animate",response.data.images.fixed_width.url);
                     gifImage.attr("data-state","still");
                     //     // Class added to each gif
                     gifImage.addClass("gif");
@@ -103,7 +103,10 @@
     }  
 
     // Adding a click event listener to all the elements displayed
-    $(document).on("click", ".savedButton", createGIFs);
+    $(document).on("click", ".savedButton", function() {
+        gifSearch = $(this).attr("data-name");
+        createGIFs()
+    });
 
     //     Responsive Button Function  
     function renderButtons() {
