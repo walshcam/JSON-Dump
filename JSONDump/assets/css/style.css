@@ -1,7 +1,35 @@
+body {
+    background-color: #136F63;
+}
+
+.container-fluid {
+    padding: 2% 2% 5% 2%;
+    background-color: #041B15;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #4CE0D2;
+}
+
+.col-md-3 {
+    width : 25%;
+    float: left;
+}
+
+.col-md-9 {
+    width: 75%;
+    float: left;
+}
+
+.container {
+    background-color: #4ce0D2;
+    margin: auto;
+}
+
 .row {
     float: left;
+    margin: auto;
 }
 
 .col {
     float: left;
+    margin: auto
 }

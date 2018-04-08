@@ -77,6 +77,7 @@
                 })
         
                 .then(function(response) {
+                    console.log(response)
                     let gifDiv = $("<div>");
                     gifDiv.addClass("col");
 
